@@ -32,7 +32,7 @@ from . import shared
 def download(tickers, start=None, end=None, actions=False, threads=True,
              group_by='column', auto_adjust=False, back_adjust=False,
              progress=True, period="max", interval="1d", prepost=False,
-             proxy=None, rounding=False, **kwargs):
+             proxy=None, rounding=False, **kwargs) -> dict:
     """Download yahoo tickers
     :Parameters:
         tickers : str, list
@@ -126,11 +126,7 @@ def download(tickers, start=None, end=None, actions=False, threads=True,
         data = _pd.concat(shared._DFS.values(), axis=1,
                           keys=shared._DFS.keys())
 
-    if group_by == 'column':
-        data.columns = data.columns.swaplevel(0, 1)
-        data.sort_index(level=0, axis=1, inplace=True)
-
-    return data
+    return shared
 
 
 def _realign_dfs():
